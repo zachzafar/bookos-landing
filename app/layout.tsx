@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "BookOS - All-in-One Booking & CRM Platform for Caribbean Rentals",
   description:
     "Modern SaaS platform for Caribbean rental businesses. Manage bookings, payments, and owner reporting in one unified dashboard.",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

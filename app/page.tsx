@@ -1,12 +1,26 @@
+"use client"
+
+import { useState } from "react"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { DemoDialog } from "@/components/demo-dialog"
+import { SignupDialog } from "@/components/signup-dialog"
 import { CheckCircle2, Calendar, CreditCard, Users, BarChart3, Globe, Smartphone } from "lucide-react"
 
 export default function Home() {
+  const [demoOpen, setDemoOpen] = useState(false)
+  const [signupOpen, setSignupOpen] = useState(false)
+
+  const scrollToFeatures = () => {
+    document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
     <div className="min-h-screen">
       <Header />
+      <DemoDialog open={demoOpen} onOpenChange={setDemoOpen} />
+      <SignupDialog open={signupOpen} onOpenChange={setSignupOpen} />
 
       {/* Hero Section */}
       <section className="container mx-auto max-w-5xl px-4 pt-32 pb-20 text-center">
@@ -19,10 +33,10 @@ export default function Home() {
             reporting under one roof.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Button size="lg" className="min-w-[160px]">
+            <Button size="lg" className="min-w-[160px]" onClick={() => setDemoOpen(true)}>
               Request a Demo
             </Button>
-            <Button size="lg" variant="outline" className="min-w-[160px] bg-transparent">
+            <Button size="lg" variant="outline" className="min-w-[160px] bg-transparent" onClick={scrollToFeatures}>
               Learn More
             </Button>
           </div>
@@ -41,7 +55,7 @@ export default function Home() {
       </section>
 
       {/* What is BookOS */}
-      <section className="container mx-auto max-w-5xl px-4 py-20">
+      <section id="features" className="container mx-auto max-w-5xl px-4 py-20">
         <div className="mx-auto max-w-3xl space-y-6 text-center">
           <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl">What is BookOS?</h2>
           <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
@@ -296,13 +310,14 @@ export default function Home() {
             BookOS can transform your operations.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" variant="secondary" className="min-w-[160px]">
+            <Button size="lg" variant="secondary" className="min-w-[160px]" onClick={() => setSignupOpen(true)}>
               Get Started
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="min-w-[160px] border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+              onClick={() => setDemoOpen(true)}
             >
               Schedule Demo
             </Button>
