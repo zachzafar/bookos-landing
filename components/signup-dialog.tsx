@@ -23,19 +23,32 @@ export function SignupDialog({ open, onOpenChange }: SignupDialogProps) {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const res = await fetch("/api/send-interest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      })
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
+      if (!res.ok) {
+        throw new Error("Failed to submit")
+      }
 
-    // Reset form after 2 seconds
-    setTimeout(() => {
-      setName("")
-      setEmail("")
-      setIsSuccess(false)
-      onOpenChange(false)
-    }, 2000)
+      setIsSuccess(true)
+
+      // Reset form after 2 seconds
+      setTimeout(() => {
+        setName("")
+        setEmail("")
+        setIsSuccess(false)
+        onOpenChange(false)
+      }, 2000)
+    } catch (err) {
+      console.error(err)
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

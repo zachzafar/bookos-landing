@@ -17,7 +17,7 @@ export function Header() {
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" asChild>
-              <a href="https://auth.bookos.xyz" target="_blank" rel="noopener noreferrer">
+              <a href="https://app.bookos.xyz" target="_blank" rel="noopener noreferrer">
                 Log In
               </a>
             </Button>
