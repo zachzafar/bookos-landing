@@ -16,6 +16,7 @@ interface SignupDialogProps {
 export function SignupDialog({ open, onOpenChange }: SignupDialogProps) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [company, setCompany] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -27,7 +28,7 @@ export function SignupDialog({ open, onOpenChange }: SignupDialogProps) {
       const res = await fetch("/api/send-interest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email, company }),
       })
 
       if (!res.ok) {
@@ -40,6 +41,7 @@ export function SignupDialog({ open, onOpenChange }: SignupDialogProps) {
       setTimeout(() => {
         setName("")
         setEmail("")
+        setCompany("")
         setIsSuccess(false)
         onOpenChange(false)
       }, 2000)
@@ -84,6 +86,16 @@ export function SignupDialog({ open, onOpenChange }: SignupDialogProps) {
                 placeholder="john@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="company">Company Name</Label>
+              <Input
+                id="company"
+                placeholder="Your Company"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
                 required
               />
             </div>
